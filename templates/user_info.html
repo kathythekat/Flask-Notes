@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} {{user.first_name}}'s Information{% endblock %}
+
+{% block content %}
+
+<p>Username: {{user.username}}</p>
+<p>Email: {{user.email}}</p>
+<p>First Name: {{user.first_name}}</p>
+<p>Last Name: {{user.last_name}}</p>
+{% for note in user.notes %}
+
+<div class="card w-75">
+  <div class="card-body">
+    <h5 class="card-title">{{note.title}}</h5>
+    <p class="card-text">{{note.content}}</p>
+    <form>
+      <button formaction="/notes/{{note.id}}/update" formmethod="POST" class="btn btn-outline-primary btn-sm" type="submit">Edit</button>
+      <button formaction="/notes/{{note.id}}/delete" formmethod="POST" class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+   </form>
+  </div>
+</div>
+{%endfor%}
+
+<div class="button-wrap">
+  <form>
+      <button type="submit" formaction= "/users/{{user.username}}/notes/add"class="btn btn-info">Add Note</button>
+
+      <button formaction="/users/{{user.username}}/delete" formmethod="POST" type="submit" class="btn btn-danger">Delete User</button>
+
+      <button formaction="/logout" type="submit" class="btn btn-warning">Logout</button>
+  </form>
+</div>
+
+
+{% endblock %}
